@@ -28,7 +28,6 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure cmdTestClick(Sender: TObject);
     procedure cmdChangeStatusClick(Sender: TObject);
-    procedure FormShow(Sender: TObject);
     procedure FormActivate(Sender: TObject);
   private
     _IsActive: boolean;
@@ -100,13 +99,6 @@ procedure TfrmMain.FormCreate(Sender: TObject);
 begin
 
   IsActive := (Trim(LowerCase(ParamStr(1))) = LowerCase(CERBERO_ACTIVATION_PARAM));
-
-end;
-
-procedure TfrmMain.FormShow(Sender: TObject);
-begin
-
-//  _RegErrMsgShowed := false;
 
 end;
 
@@ -268,6 +260,15 @@ begin
 end;
 
 procedure TfrmMain._SetIsActive(const aNewValue: boolean);
+{$J+} //writeable constants on
+const
+  rect: TRect = (Left:0; Top:0; Right:0; Bottom:0);
+  ws : TWindowState = wsNormal;
+{$J-} //writeable constants off
+
+var
+  r : TRect;
+
 begin
 
   LockWindowUpdate(Handle);
@@ -275,11 +276,8 @@ begin
   try
     if aNewValue then
     begin
-      Align := alClient;
       BorderIcons := [];
-      BorderStyle := bsNone;
       FormStyle := fsStayOnTop;
-      WindowState := wsMaximized;
       grdMain.ColumnCollection[0].Value := 25;
       grdMain.ColumnCollection[1].Value := 50;
       grdMain.ColumnCollection[2].Value := 25;
@@ -288,6 +286,13 @@ begin
       grdMain.RowCollection[2].Value := 25;
       panSettings.Visible := false;
       panLock.Visible := true;
+// START FULLSCREEN (https://zarko-gajic.iz.hr/run-your-delphi-application-in-full-screen-implement-f11-full-screen/)
+      ws := WindowState;
+      rect := BoundsRect;
+      BorderStyle := bsNone;
+      r := Screen.MonitorFromWindow(Handle).BoundsRect;
+      SetBounds(r.Left, r.Top, r.Right-r.Left, r.Bottom-r.Top);
+// END FULLSCREEN
       if Visible then
         txtCode.SetFocus;
     end
