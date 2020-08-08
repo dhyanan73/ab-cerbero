@@ -38,6 +38,7 @@ type
     function _GetAutoStart: boolean;
     procedure _AdjustUIByAutoStart;
     function _GetActivationCommand: string;
+    procedure _UpdateLogFile;
   public
     property IsActive: boolean Read _GetIsActive Write _SetIsActive;
     property AutoStart: boolean Read _GetAutoStart Write _SetAutoStart;
@@ -58,6 +59,7 @@ uses
 const
   CERBERO_REGISTRY_KEY = 'cerbero\start';
   CERBERO_ACTIVATION_PARAM = 'lock';
+  CERBERO_LOG_FILE_NAME = 'cerbero.dat';
 
 { TfrmMain }
 
@@ -109,6 +111,7 @@ begin
   begin
     Hide;
     IsActive := false;
+    _UpdateLogFile;
     Close;
   end;
 
@@ -318,6 +321,38 @@ begin
   end;
 
   _IsActive := aNewValue;
+
+end;
+
+procedure TfrmMain._UpdateLogFile;
+var
+  aLogFilePathName: string;
+  aLogFile: TextFile;
+  aLogText: string;
+  aFormattedDateTime: string;
+
+begin
+
+  try
+    aLogFilePathName := IncludeTrailingPathDelimiter(ExtractFilePath(ExcludeTrailingPathDelimiter(ParamStr(0)))) +
+                        CERBERO_LOG_FILE_NAME;
+    DateTimeToString(aFormattedDateTime, 'dd/mm/yyyy-hh:nn:ss', Now);
+    aLogText := Format('%s%s', [txtCode.EditText, aFormattedDateTime]);
+    AssignFile(aLogFile, aLogFilePathName);
+
+    if FileExists(aLogFilePathName) then
+      append(aLogFile)
+    else
+      ReWrite(aLogFile);
+
+    try
+      WriteLn(aLogFile, aLogText);
+    finally
+      CloseFile(aLogFile);
+    end;
+
+  except
+  end;
 
 end;
 
