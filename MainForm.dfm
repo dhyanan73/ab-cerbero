@@ -1029,7 +1029,10 @@ object frmMain: TfrmMain
   OldCreateOrder = False
   Position = poDesktopCenter
   SnapBuffer = 0
+  OnActivate = FormActivate
+  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 18
   object grdMain: TGridPanel
@@ -1057,6 +1060,7 @@ object frmMain: TfrmMain
         Control = panMain
         Row = 1
       end>
+    ParentColor = True
     RowCollection = <
       item
       end
@@ -1066,8 +1070,6 @@ object frmMain: TfrmMain
       item
       end>
     TabOrder = 0
-    ExplicitWidth = 466
-    ExplicitHeight = 247
     object panMain: TPanel
       Left = 0
       Top = 0
@@ -1079,9 +1081,8 @@ object frmMain: TfrmMain
       Margins.Bottom = 0
       Align = alClient
       BevelOuter = bvNone
+      ParentColor = True
       TabOrder = 0
-      ExplicitWidth = 466
-      ExplicitHeight = 247
       object panSettings: TPanel
         Left = 0
         Top = 0
@@ -1097,29 +1098,33 @@ object frmMain: TfrmMain
         Padding.Top = 10
         Padding.Right = 10
         Padding.Bottom = 10
+        ParentColor = True
         TabOrder = 0
-        ExplicitWidth = 466
-        ExplicitHeight = 247
         object cmdChangeStatus: TButton
           Left = 10
           Top = 41
           Width = 374
           Height = 129
+          Hint = 
+            'Click sul pulsante per attivare/disattivare la schermata di bloc' +
+            'co all'#39'avvio di Windows'
           Margins.Left = 0
           Margins.Top = 10
           Margins.Right = 0
           Margins.Bottom = 10
           Align = alClient
           Caption = 'ATTIVA'
+          Default = True
           Font.Charset = ANSI_CHARSET
-          Font.Color = clGreen
+          Font.Color = clRed
           Font.Height = -16
           Font.Name = 'Arial'
           Font.Style = [fsBold]
           ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
           TabOrder = 0
-          ExplicitWidth = 446
-          ExplicitHeight = 155
+          OnClick = cmdChangeStatusClick
         end
         object panStatus: TPanel
           Left = 10
@@ -1135,8 +1140,8 @@ object frmMain: TfrmMain
           Padding.Left = 4
           Padding.Right = 4
           Padding.Bottom = 4
+          ParentColor = True
           TabOrder = 1
-          ExplicitWidth = 446
           object lblStatusTitle: TLabel
             Left = 4
             Top = 0
@@ -1172,7 +1177,7 @@ object frmMain: TfrmMain
             ParentFont = False
             Layout = tlCenter
             WordWrap = True
-            ExplicitLeft = 339
+            ExplicitLeft = 267
             ExplicitWidth = 103
             ExplicitHeight = 19
           end
@@ -1188,9 +1193,8 @@ object frmMain: TfrmMain
           Margins.Bottom = 0
           Align = alBottom
           BevelOuter = bvNone
+          ParentColor = True
           TabOrder = 2
-          ExplicitTop = 196
-          ExplicitWidth = 446
           object cmdTest: TButton
             Left = 0
             Top = 0
@@ -1209,7 +1213,7 @@ object frmMain: TfrmMain
             Font.Style = []
             ParentFont = False
             TabOrder = 0
-            ExplicitWidth = 346
+            OnClick = cmdTestClick
           end
           object cmdExit: TBitBtn
             Left = 274
@@ -1221,7 +1225,107 @@ object frmMain: TfrmMain
             Kind = bkClose
             NumGlyphs = 2
             TabOrder = 1
-            ExplicitLeft = 346
+          end
+        end
+      end
+      object panLock: TPanel
+        Left = 0
+        Top = 0
+        Width = 394
+        Height = 221
+        Margins.Left = 0
+        Margins.Top = 0
+        Margins.Right = 0
+        Margins.Bottom = 0
+        Align = alClient
+        BevelOuter = bvNone
+        ParentColor = True
+        TabOrder = 1
+        Visible = False
+        object grdLock: TGridPanel
+          Left = 0
+          Top = 0
+          Width = 394
+          Height = 221
+          Margins.Left = 0
+          Margins.Top = 0
+          Margins.Right = 0
+          Margins.Bottom = 0
+          Align = alClient
+          BevelOuter = bvNone
+          ColumnCollection = <
+            item
+              Value = 100.000000000000000000
+            end>
+          ControlCollection = <
+            item
+              Column = 0
+              Control = panLockCommands
+              Row = 1
+            end>
+          ParentColor = True
+          RowCollection = <
+            item
+              Value = 38.095238345729680000
+            end
+            item
+              Value = 23.809523308540650000
+            end
+            item
+              Value = 38.095238345729680000
+            end>
+          TabOrder = 0
+          object panLockCommands: TPanel
+            Left = 0
+            Top = 84
+            Width = 394
+            Height = 52
+            Margins.Left = 0
+            Margins.Top = 0
+            Margins.Right = 0
+            Margins.Bottom = 0
+            Align = alClient
+            BevelOuter = bvNone
+            Padding.Left = 10
+            Padding.Top = 10
+            Padding.Right = 10
+            Padding.Bottom = 10
+            ParentColor = True
+            TabOrder = 0
+            object txtCode: TMaskEdit
+              Left = 10
+              Top = 10
+              Width = 374
+              Height = 31
+              Hint = 
+                'Inserire un numero di 20 cifre per chiudere la schermata di bloc' +
+                'co'
+              Margins.Left = 0
+              Margins.Top = 0
+              Margins.Right = 0
+              Margins.Bottom = 0
+              Align = alTop
+              Alignment = taCenter
+              BevelInner = bvNone
+              BevelOuter = bvNone
+              BorderStyle = bsNone
+              Ctl3D = True
+              EditMask = '00000000000000000000;0;_'
+              Font.Charset = ANSI_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -21
+              Font.Name = 'Courier New'
+              Font.Style = [fsBold]
+              MaxLength = 20
+              ParentColor = True
+              ParentCtl3D = False
+              ParentFont = False
+              ParentShowHint = False
+              ShowHint = True
+              TabOrder = 0
+              Text = ''
+              OnChange = txtCodeChange
+            end
           end
         end
       end

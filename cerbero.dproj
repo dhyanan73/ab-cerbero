@@ -5,7 +5,7 @@
         <FrameworkType>VCL</FrameworkType>
         <MainSource>cerbero.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
         <AppType>Application</AppType>
@@ -96,11 +96,11 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
         <VerInfo_Locale>1040</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=P.L.I.C. di Barbagallo Andrea;FileDescription=Cerbero;FileVersion=1.0.0.1;InternalName=;LegalCopyright=Copyright © 2020 Andrea Barbagallo (info@andreabarbagallo.com). All rights reserved.;LegalTrademarks=;OriginalFilename=;ProgramID=com.andreabarbagallo.$(MSBuildProjectName);ProductName=Cerbero;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=P.L.I.C. di Barbagallo Andrea;FileDescription=Cerbero;FileVersion=1.0.0.10;InternalName=;LegalCopyright=Copyright © 2020 Andrea Barbagallo (info@andreabarbagallo.com). All rights reserved.;LegalTrademarks=;OriginalFilename=;ProgramID=com.andreabarbagallo.$(MSBuildProjectName);ProductName=Cerbero;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <Icon_MainIcon>cerbero.ico</Icon_MainIcon>
         <UWP_DelphiLogo44>cerbero_44px.png</UWP_DelphiLogo44>
         <UWP_DelphiLogo150>cerbero_150px.png</UWP_DelphiLogo150>
-        <VerInfo_Build>1</VerInfo_Build>
+        <VerInfo_Build>10</VerInfo_Build>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
